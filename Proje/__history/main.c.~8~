@@ -1,0 +1,40 @@
+#include <main.h>
+#fuses HS
+#use delay(clock=4000000)
+#use fast_io(b)
+#use fast_io(c)
+
+const int a[10]= {0x3F,0x06,0x5B,0x4F,0x3F,0x66,0x6D,0x07C,0x07} ;
+int sayac=0,onlar,birler;
+void main()
+{
+   set_tris_b(0b00000000);
+   set_tris_c(0b00000000);
+   output_b(0x00);
+   output_c(0x00);
+
+
+
+   for(;;)
+   {
+     sayac=sayac+1;
+     onlar=sayac/10;
+     birler=sayac%10;
+   
+     output_high(pin_c0);
+     output_b(a[birler]);
+     delay_ms(50);
+     output_low(pin_c0);
+
+     output_high(pin_c1);
+     output_b(a[onlar]);
+     delay_ms(50);
+     output_low(pin_c1);
+     
+     if(sayac == 100)
+    {
+         sayac=0;
+    }
+   }
+
+}
